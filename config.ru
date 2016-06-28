@@ -3,7 +3,17 @@ require 'bundler'
 Bundler.require
 
 require './route/status_route'
+require './route/vue_route'
+require './route/dic_route'
+
+require './controller/dic_controller'
 
 Faye::WebSocket.load_adapter('puma')
 
-run Rack::URLMap.new('/' => StatusRoute)
+use Rack::Static,
+    :urls => %w'/app /js /css /img /font',
+    :root => 'public'
+
+run Rack::URLMap.new('/status' => StatusRoute,
+                     '/dic' => DicRoute,
+                     '/' => VueRoute)

@@ -1,0 +1,8 @@
+$(document).ready(function(){
+    var app = new Vue({
+        el: '#app',
+        data: {
+            title: 'AlphaPro'
+        }
+    });
+});

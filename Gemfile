@@ -14,5 +14,5 @@ gem 'faye-websocket', require:'faye/websocket'
 
 gem 'json'
 gem 'redcarpet'
-gem 'mongo'
-gem 'mongoid', '~> 5.1.0'
+#gem 'mongo'
+#gem 'mongoid', '~> 5.1.0'
