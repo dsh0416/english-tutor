@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <title>AlphaPro</title>
     <meta charset="utf-8">
@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-material-design/0.5.10/css/bootstrap-material-design.min.css">
     <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap-material-design/0.5.10/css/ripples.min.css">
+    <link rel="stylesheet" href="../css/app.css">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap-material-design/0.5.10/js/ripples.min.js"></script>
+    <script src="//cdn.bootcss.com/p5.js/0.5.2/p5.min.js"></script>
+    <script src="//cdn.bootcss.com/p5.js/0.5.2/addons/p5.sound.min.js"></script>
+    <script src="//cdn.bootcss.com/p5.js/0.5.2/addons/p5.dom.min.js"></script>
     <script src="../js/vue.js"></script>
     <script src="../js/app.js"></script>
 </head>
@@ -23,6 +28,39 @@
                 <a class="navbar-brand" href="javascript:void(0)">{{title}}</a>
             </div>
         </div>
+    </div>
+    <div id="welcome" v-show="visible.welcome">
+        <a href="javascript:void(0)" class="btn btn-raised btn-primary" id="voc-progress-text">{{progress}}</a>
+        <div class="progress" id="voc-progress">
+            <div class="progress-bar progress-bar-success" v-bind:style="{width: progress+'%'}"></div>
+        </div>
+        <h3>Learning Progress</h3>
+        <hr/>
+        <div class="list-group" v-for="word in dic">
+            <div class="list-group-item" v-on:click="learn(word)">
+                <div class="row-action-primary">
+                   <img v-bind:src="word.img">
+                </div>
+                <div class="row-content">
+                    <div class="least-content">{{word.passed? 'Pass':'Learn'}}</div>
+                    <h4 class="list-group-item-heading">{{word.word}}</h4>
+
+                    <p class="list-group-item-text">{{word.explanation}}</p>
+                </div>
+            </div>
+            <div class="list-group-separator"></div>
+        </div>
+    </div>
+
+    <div id="flashcard" v-show="visible.flashcard">
+        <img v-bind:src="learning.img" style="width: 50%">
+        <h4>{{learning.word}}</h4>
+        <div style="width: 100%">
+            <a h ref="javascript:void(0)" class="btn btn-raised btn-primary" onclick='document.getElementsByTagName("audio")[0].play()'>PLAY</a>
+            <a href="javascript:void(0)" class="btn btn-raised btn-primary" onclick="alert('评分系统尚在开发中')">RECORD</a>
+        </div>
+        <audio v-bind:src="learning.voice" preload="load"></audio>
+        <div id="fft"></div>
     </div>
 </div>
 </body>

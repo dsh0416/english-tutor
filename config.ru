@@ -11,7 +11,7 @@ require './controller/dic_controller'
 Faye::WebSocket.load_adapter('puma')
 
 use Rack::Static,
-    :urls => %w'/app /js /css /img /font',
+    :urls => %w'/app /js /css /img /font /audio',
     :root => 'public'
 
 run Rack::URLMap.new('/status' => StatusRoute,
